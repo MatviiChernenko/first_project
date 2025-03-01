@@ -55,6 +55,30 @@ class Hero (Human):
         self.move_image()
         window.blit(self.image_now, (self.x, self.y)) 
 
+class Snake (Human):
+    def __init__(self,x,y,width,height,image_list,step):
+        super().__init__(x,y,width,height,image_list,step)
+
+    def move(self,window):  
+        self.move_image()
+        window.blit(self.image_now, (self.x, self.y)) 
+
+class Slime (Human):
+    def __init__(self,x,y,width,height,image_list,step):
+        super().__init__(x,y,width,height,image_list,step)
+
+    def move(self,window):  
+        self.move_image()
+        window.blit(self.image_now, (self.x, self.y)) 
+
+class Gun (Human):
+    def __init__(self,x,y,width,height,image_list,step):
+        super().__init__(x,y,width,height,image_list,step)
+
+    def move(self,window):  
+        self.move_image()
+        window.blit(self.image_now, (self.x, self.y))
+        
 class Wall(pygame.Rect):
     def __init__(self,x,y,width,height,color):
         super().__init__(x,y,width,height)
@@ -62,6 +86,7 @@ class Wall(pygame.Rect):
 
 def creat_wall(new_map):
     x,y = 0,0
+    x1,y2 = 0,0
     width, height = 12,12
     for line in new_map:
         for elem in line:
@@ -70,17 +95,12 @@ def creat_wall(new_map):
             x += width
         x = 0
         y += height
-def creat_wall2(new_map):
-    x,y = 0,0
-    width, height = 12,12
     for line in new_map:
         for elem in line:
             if elem == "2":
-                wall_list.append(Wall(x,y,width,height,BLUE))
-            x += width
-        x = 0
-        y += height
-creat_wall(maps["LVL1"]["map"])
-creat_wall2(maps["LVL1"]["map"])
+                wall_list.append(Wall(x1,y2,width,height,BLUE))
+            x1 += width
+        x1 = 0
+        y2 += height
 
-                
+creat_wall(maps["LVL1"]["map"])

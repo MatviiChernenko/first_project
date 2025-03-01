@@ -11,7 +11,34 @@ hero = Hero(
     size_hero[0],
     size_hero[1],
     hero_image_list,
+    3
+)
+
+snake = Snake(
+    50,
+    400,
+    size_snake[0],
+    size_snake[1],
+    snake_image_list,
     5
+)
+
+slime = Slime(
+    214,
+    356,
+    size_slime[0],
+    size_slime[1],
+    slime_image_list,
+    3
+)
+
+gun = Gun(
+    937,
+    170,
+    size_gun[0],
+    size_gun[1],
+    gun_image_list,
+    0
 )
 
 game = True
@@ -27,6 +54,9 @@ while game:
       #  y+=15
 
     hero.move(window)
+    snake.move(window)
+    slime.move(window)
+    gun.move(window)
       
     for wall in wall_list:
         pygame.draw.rect(window,wall.color,wall)
