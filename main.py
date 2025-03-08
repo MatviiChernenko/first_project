@@ -20,7 +20,7 @@ snake = Snake(
     400,
     size_snake[0],
     size_snake[1],
-    snake_image_list,
+    snake_image_list.copy(),
     5
 )
 
@@ -46,9 +46,20 @@ slime1 = Slime(
     radius= 145
 )
 
+slime2 = Slime(
+    805,
+    138,
+    size_slime[0],
+    size_slime[1],
+    slime_image_list,
+    4,
+    "horizontal",
+    radius= 150
+)
+
 gun = Gun(
     907,
-    170,
+    168,
     size_gun[0],
     size_gun[1],
     gun_image_list,
@@ -56,8 +67,8 @@ gun = Gun(
 )
 
 gun1 = Gun(
-    720,
-    170,
+    757,
+    168,
     size_gun[0],
     size_gun[1],
     gun_image_list,
@@ -84,6 +95,8 @@ fireball1 = Fireball(
     "vertical"
 )
 
+heart_list.append(Heart(934,452,50,50,heart_gold_image_list))
+
 game = True
 while game:
     events = pygame.event.get()
@@ -100,11 +113,16 @@ while game:
     snake.move(window)
     slime.guardion(window)
     slime1.guardion(window)
+    slime2.guardion(window)
     gun.striker(window,fireball)
     gun1.striker(window,fireball1)
       
     for wall in wall_list:
         pygame.draw.rect(window,wall.color,wall)
+    
+
+    for heart in heart_list:
+        heart.blit(window)
 
     for event in events:
         if event.type == pygame.QUIT:

@@ -71,6 +71,11 @@ class Slime (Human):
         self.start_x = x
         self.start_y = y
         self.radius = radius
+        if self.orientation.find("left") != 1:
+            index = 0
+            while index < len(self.image_list):
+                self.image_list[index] = pygame.transform.flip(self.image_list[index], True, False)
+                index += 1
 
     def guardion(self,window): 
         if self.orientation == "vertical":
@@ -98,11 +103,11 @@ class Fireball (pygame.Rect):
         self.step = step
     
     def move(self,window):
-        if self.orientation == "vertical":
+        if self.orientation.find("vertical") != 1:
             self.y += self.step
             if self.y < 0 or self.y > size_window[1] or self.collidelist(wall_list) != -1:
                 self.y = self.start_y
-        elif self.orientation == "horizontal":
+        elif self.orientation.find("horizontal") != 1:
             self.x += self.step
             if self.x < 0 or self.x > size_window[0] or self.collidelist(wall_list) != -1:
                 self.x = self.start_x 
@@ -118,6 +123,19 @@ class Gun (Human):
         self.move_image()
         window.blit(self.image, (self.x, self.y)) 
         fireball.move(window)
+
+class Heart (pygame.Rect):
+    def __init__(self,x,y,width,height,image):
+        super().__init__(x,y,width,height)
+        self.image = image
+        #self.image = self.image[0]
+        self.image_count = 0
+
+    def blit(self,window):
+        window.blit(self.image,(self.x,self.y))
+
+
+
 class Wall(pygame.Rect):
     def __init__(self,x,y,width,height,color):
         super().__init__(x,y,width,height)
@@ -143,3 +161,5 @@ def creat_wall(new_map):
         y2 += height
 
 creat_wall(maps["LVL1"]["map"])
+
+                
