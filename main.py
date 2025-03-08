@@ -47,15 +47,16 @@ slime1 = Slime(
 )
 
 gun = Gun(
-    937,
+    907,
     170,
     size_gun[0],
     size_gun[1],
     gun_image_list,
     0
 )
+
 gun1 = Gun(
-    710,
+    720,
     170,
     size_gun[0],
     size_gun[1],
@@ -64,13 +65,23 @@ gun1 = Gun(
 )
 
 fireball = Fireball(
-    gun.x,
-    gun.y - 5,
+    gun.x + 5,
+    gun.y + 5,
     size_fireball[0],
     size_fireball[1],
     fireball_image_list,
-    3,
-    "horizontal"
+    8,
+    "vertical"
+)
+
+fireball1 = Fireball(
+    gun1.x  + 5,
+    gun1.y + 5,
+    size_fireball[0],
+    size_fireball[1],
+    fireball_image_list,
+    5,
+    "vertical"
 )
 
 game = True
@@ -89,8 +100,8 @@ while game:
     snake.move(window)
     slime.guardion(window)
     slime1.guardion(window)
-    gun.move(window,fireball)
-    gun1.move(window,fireball)
+    gun.striker(window,fireball)
+    gun1.striker(window,fireball1)
       
     for wall in wall_list:
         pygame.draw.rect(window,wall.color,wall)

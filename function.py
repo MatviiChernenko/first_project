@@ -62,7 +62,7 @@ class Snake (Human):
 
     def move(self,window):  
         self.move_image()
-        window.blit(self.image_now, (self.x, self.y)) 
+        window.blit(self.image, (self.x, self.y)) 
 
 class Slime (Human):
     def __init__(self,x,y,width,height,image_list,step,orientation,radius= 0):
@@ -84,24 +84,14 @@ class Slime (Human):
         self.move_image()
         window.blit(self.image, (self.x, self.y)) 
     
-    def striker(self,window, fireball):
-        self.move_image()
-        window.blit(self.image, (self.x, self.y)) 
-        fireball.move(window)
 
 
-class Gun (Human):
-    def __init__(self,x,y,width,height,image_list,step):
-        super().__init__(x,y,width,height,image_list,step)
-
-    def move(self,window, fireball):
-        self.move_image()
-        window.blit(self.image, (self.x, self.y)) 
-        fireball.move(window)
 
 class Fireball (pygame.Rect):
     def __init__(self,x,y,width,height,image_list,step,orientation):
         super().__init__(x,y,width,height)
+        self.image_list = image_list
+        self.image = self.image_list[0]
         self.orientation = orientation
         self.start_x = x
         self.start_y = y
@@ -110,17 +100,24 @@ class Fireball (pygame.Rect):
     def move(self,window):
         if self.orientation == "vertical":
             self.y += self.step
-            if self.y < 0 or self.y > size_window[0] or self.collidelist(wall_list) != 1:
+            if self.y < 0 or self.y > size_window[1] or self.collidelist(wall_list) != -1:
                 self.y = self.start_y
         elif self.orientation == "horizontal":
             self.x += self.step
-            if self.x < 0 or self.x > size_window[0] or self.collidelist(wall_list) != 1:
-                self.x = self.start_yx 
+            if self.x < 0 or self.x > size_window[0] or self.collidelist(wall_list) != -1:
+                self.x = self.start_x 
 
-        pygame.draw.rect(window,self.color,self)
-        window.blit(self.image_now, (self.x, self.y))
+        window.blit(self.image, (self.x, self.y))
 
         
+class Gun (Human):
+    def __init__(self,x,y,width,height,image_list,step):
+        super().__init__(x,y,width,height,image_list,step)
+
+    def striker(self,window, fireball):
+        self.move_image()
+        window.blit(self.image, (self.x, self.y)) 
+        fireball.move(window)
 class Wall(pygame.Rect):
     def __init__(self,x,y,width,height,color):
         super().__init__(x,y,width,height)
@@ -146,5 +143,3 @@ def creat_wall(new_map):
         y2 += height
 
 creat_wall(maps["LVL1"]["map"])
-
-                
